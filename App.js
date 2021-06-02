@@ -1,20 +1,29 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, FlatList } from 'react-native'
 import Header from './components/Header'
-import { uuid } from 'uuidv4'
+import 'react-native-get-random-values'
+import { v4 as uuidv4 } from 'uuid'
+
+const idGenerator = () => {
+  return Math.floor(Math.random() * 1000)
+}
 
 const App = () => {
 
   const [items, setItems] = useState([
-    {id: uuid(), text: 'Milk'},
-    {id: uuid(), text: 'Eggs'},
-    {id: uuid(), text: 'Bread'},
-    {id: uuid(), text: 'Juice'},
+    {id: idGenerator(), text: 'Milk'},
+    {id: idGenerator(), text: 'Eggs'},
+    {id: idGenerator(), text: 'Bread'},
+    {id: idGenerator(), text: 'Juice'},
   ])
 
   return(
     <View style={styles.container}>
       <Header />
+      <FlatList 
+        data={items}
+        renderItem={({item}) => <Text>{item.text}</Text>}
+      />
     </View>
   )
 }
